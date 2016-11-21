@@ -1,0 +1,39 @@
+c:\users\sylvain\documents\visual studio 2015\Projects\contosoBankBot\contosoBankBot\bin\Bot Application1.dll.config
+c:\users\sylvain\documents\visual studio 2015\Projects\contosoBankBot\contosoBankBot\bin\Bot Application1.dll
+c:\users\sylvain\documents\visual studio 2015\Projects\contosoBankBot\contosoBankBot\bin\Bot Application1.pdb
+c:\users\sylvain\documents\visual studio 2015\Projects\contosoBankBot\contosoBankBot\bin\Autofac.dll
+c:\users\sylvain\documents\visual studio 2015\Projects\contosoBankBot\contosoBankBot\bin\Chronic.dll
+c:\users\sylvain\documents\visual studio 2015\Projects\contosoBankBot\contosoBankBot\bin\Microsoft.Bot.Builder.dll
+c:\users\sylvain\documents\visual studio 2015\Projects\contosoBankBot\contosoBankBot\bin\Microsoft.Bot.Connector.dll
+c:\users\sylvain\documents\visual studio 2015\Projects\contosoBankBot\contosoBankBot\bin\Microsoft.IdentityModel.Protocol.Extensions.dll
+c:\users\sylvain\documents\visual studio 2015\Projects\contosoBankBot\contosoBankBot\bin\Microsoft.Rest.ClientRuntime.dll
+c:\users\sylvain\documents\visual studio 2015\Projects\contosoBankBot\contosoBankBot\bin\Microsoft.WindowsAzure.Configuration.dll
+c:\users\sylvain\documents\visual studio 2015\Projects\contosoBankBot\contosoBankBot\bin\Newtonsoft.Json.dll
+c:\users\sylvain\documents\visual studio 2015\Projects\contosoBankBot\contosoBankBot\bin\System.IdentityModel.Tokens.Jwt.dll
+c:\users\sylvain\documents\visual studio 2015\Projects\contosoBankBot\contosoBankBot\bin\System.Net.Http.Formatting.dll
+c:\users\sylvain\documents\visual studio 2015\Projects\contosoBankBot\contosoBankBot\bin\System.Web.Http.dll
+c:\users\sylvain\documents\visual studio 2015\Projects\contosoBankBot\contosoBankBot\bin\System.Web.Http.WebHost.dll
+c:\users\sylvain\documents\visual studio 2015\Projects\contosoBankBot\contosoBankBot\bin\Autofac.xml
+c:\users\sylvain\documents\visual studio 2015\Projects\contosoBankBot\contosoBankBot\bin\Microsoft.Bot.Builder.xml
+c:\users\sylvain\documents\visual studio 2015\Projects\contosoBankBot\contosoBankBot\bin\Microsoft.Bot.Connector.xml
+c:\users\sylvain\documents\visual studio 2015\Projects\contosoBankBot\contosoBankBot\bin\Microsoft.IdentityModel.Protocol.Extensions.pdb
+c:\users\sylvain\documents\visual studio 2015\Projects\contosoBankBot\contosoBankBot\bin\Microsoft.IdentityModel.Protocol.Extensions.xml
+c:\users\sylvain\documents\visual studio 2015\Projects\contosoBankBot\contosoBankBot\bin\Microsoft.Rest.ClientRuntime.xml
+c:\users\sylvain\documents\visual studio 2015\Projects\contosoBankBot\contosoBankBot\bin\Microsoft.WindowsAzure.Configuration.xml
+c:\users\sylvain\documents\visual studio 2015\Projects\contosoBankBot\contosoBankBot\bin\Newtonsoft.Json.xml
+c:\users\sylvain\documents\visual studio 2015\Projects\contosoBankBot\contosoBankBot\bin\System.IdentityModel.Tokens.Jwt.pdb
+c:\users\sylvain\documents\visual studio 2015\Projects\contosoBankBot\contosoBankBot\bin\System.IdentityModel.Tokens.Jwt.xml
+c:\users\sylvain\documents\visual studio 2015\Projects\contosoBankBot\contosoBankBot\bin\System.Net.Http.Formatting.xml
+c:\users\sylvain\documents\visual studio 2015\Projects\contosoBankBot\contosoBankBot\bin\System.Web.Http.xml
+c:\users\sylvain\documents\visual studio 2015\Projects\contosoBankBot\contosoBankBot\bin\System.Web.Http.WebHost.xml
+c:\users\sylvain\documents\visual studio 2015\Projects\contosoBankBot\contosoBankBot\bin\ar\Microsoft.Bot.Builder.resources.dll
+c:\users\sylvain\documents\visual studio 2015\Projects\contosoBankBot\contosoBankBot\bin\en\Microsoft.Bot.Builder.resources.dll
+c:\users\sylvain\documents\visual studio 2015\Projects\contosoBankBot\contosoBankBot\bin\es\Microsoft.Bot.Builder.resources.dll
+c:\users\sylvain\documents\visual studio 2015\Projects\contosoBankBot\contosoBankBot\bin\fa\Microsoft.Bot.Builder.resources.dll
+c:\users\sylvain\documents\visual studio 2015\Projects\contosoBankBot\contosoBankBot\bin\fr\Microsoft.Bot.Builder.resources.dll
+c:\users\sylvain\documents\visual studio 2015\Projects\contosoBankBot\contosoBankBot\bin\ja\Microsoft.Bot.Builder.resources.dll
+c:\users\sylvain\documents\visual studio 2015\Projects\contosoBankBot\contosoBankBot\bin\ru\Microsoft.Bot.Builder.resources.dll
+c:\users\sylvain\documents\visual studio 2015\Projects\contosoBankBot\contosoBankBot\bin\zh-hans\Microsoft.Bot.Builder.resources.dll
+c:\users\sylvain\documents\visual studio 2015\Projects\contosoBankBot\contosoBankBot\obj\Release\Bot Application1.dll
+c:\users\sylvain\documents\visual studio 2015\Projects\contosoBankBot\contosoBankBot\obj\Release\Bot Application1.pdb
+c:\users\sylvain\documents\visual studio 2015\Projects\contosoBankBot\contosoBankBot\obj\Release\contosoBankBot.csprojResolveAssemblyReference.cache
