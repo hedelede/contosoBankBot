@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="leContosoBankBot" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Users\\Sylvain\\Documents\\Visual\ Studio\ 2015\\Projects\\contosoBankBot\\contosoBankBot\\obj\\Release\\Package\\PackageTmp$" />
+    <parameterEntry kind="ProviderPath" scope="setAcl" match="^C:\\Users\\Sylvain\\Documents\\Visual\ Studio\ 2015\\Projects\\contosoBankBot\\contosoBankBot\\obj\\Release\\Package\\PackageTmp$" />
+  </parameter>
+</parameters>
