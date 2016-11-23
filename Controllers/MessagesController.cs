@@ -41,7 +41,7 @@ namespace contosoBankBot
 
                 bool greeting = userData.GetProperty<bool>("SentGreeting");
                                 
-                //Basic greeting, saving name (working? not fully)
+                //Basic greeting, saving name
                 if (greeting == true)
                 {
                     string name = userData.GetProperty<string>("Name");
