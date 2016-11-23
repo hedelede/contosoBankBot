@@ -11,6 +11,7 @@ using MSA_WeatherBot.Models;
 using System.Collections.Generic;
 using Microsoft.WindowsAzure.MobileServices;
 using contosoBankBot.Models;
+using contosoBankBot.DataModels;
 
 namespace contosoBankBot
 {
@@ -132,43 +133,38 @@ namespace contosoBankBot
                     return Request.CreateResponse(HttpStatusCode.OK);
 
                 }
-                /*
-                //Timeline implemtation
-                if (userMessage.ToLower().Equals("get timelines"))
+
+                //Database implementation
+                if (userMessage.ToLower().Equals("get database"))
                 {
-                    List<leTimeline> timelines = await AzureManager.AzureManagerInstance.GetTimelines();
+                    List<leContosoBankTable> databases = await AzureManager.AzureManagerInstance.GetDatabase();
                     endOutput = "";
-                    foreach (leTimeline t in timelines)
+                    foreach (leContosoBankTable t in databases)
                     {
-                        endOutput += "[" + t.Date + "] Sadness " + t.Sadness + ", Anger " + t.Anger + "\n\n";
+                        endOutput += "[" + t.createdAt + "] ID " + t.id + ", Version " + t.version + "\n\n";
                     }
                     exchangeRateRequest = false;
 
                 }
 
-                //Timeline creation
-                if (userMessage.ToLower().Equals("new timeline"))
+                //Database creation
+                if (userMessage.ToLower().Equals("new database"))
                 {
-                    leTimeline timeline = new leTimeline()
+                    leContosoBankTable database = new leContosoBankTable()
                     {
-                        Anger = 0.1,
-                        Contempt = 0.2,
-                        Disgust = 0.3,
-                        Fear = 0.3,
-                        Happiness = 0.3,
-                        Neutral = 0.2,
-                        Sadness = 0.4,
-                        Surprise = 0.4,
-                        Date = DateTime.Now
+                        id = "123454321",
+                        createdAt = DateTime.Now,
+                        updatedAt = DateTime.Now,
+                        deleted = false,
+                        version = 1.0
                     };
 
-                    await AzureManager.AzureManagerInstance.AddTimeline(timeline);
+                    await AzureManager.AzureManagerInstance.AddDatabase(database);
 
                     exchangeRateRequest = false;
 
-                    endOutput = "New timeline added [" + timeline.Date + "]";
+                    endOutput = "New timeline added [" + database.createdAt + "]";
                 }
-                */
 
                 //API call for conversion rates
                 if (!exchangeRateRequest)
