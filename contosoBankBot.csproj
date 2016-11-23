@@ -135,9 +135,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="AzureManager.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
-    <Compile Include="DataModels\leTimeline .cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -149,6 +147,7 @@
     <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\lecontosobankbot - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\leContosoBankBot - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\leContosoBankBotApp - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -40,6 +40,7 @@ namespace contosoBankBot.Models
             public double USD { get; set; }
             public double ZAR { get; set; }
             public double EUR { get; set; }
+            public double NZD { get; set; }
         }
 
         public class RootObject

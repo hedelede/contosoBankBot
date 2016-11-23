@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 using MSA_WeatherBot.Models;
 using System.Collections.Generic;
 using Microsoft.WindowsAzure.MobileServices;
-using contosoBankBot.DataModels;
+using contosoBankBot.Models;
 
 namespace contosoBankBot
 {
@@ -33,7 +33,7 @@ namespace contosoBankBot
 
                 bool exchangeRateRequest = false;
                 string endOutput = "Hello, I am *Contoso 343*, the Contoso Bank chatbot. ";
-                endOutput += "  To get started, tell me what you want to do:  \n";
+                endOutput += "To get started, tell me what you want to do:  \n";
                 endOutput += "-Write \"**stocks**\" to get the latest stock info  \n";
                 endOutput += "-Write \"**conversion**\" to get the latest conversion rates of the NZD  \n";
                 endOutput += "-Write \"**login**\" to access your personal data";
@@ -132,7 +132,7 @@ namespace contosoBankBot
                     return Request.CreateResponse(HttpStatusCode.OK);
 
                 }
-
+                /*
                 //Timeline implemtation
                 if (userMessage.ToLower().Equals("get timelines"))
                 {
@@ -168,14 +168,13 @@ namespace contosoBankBot
 
                     endOutput = "New timeline added [" + timeline.Date + "]";
                 }
-
+                */
 
                 //API call for conversion rates
                 if (!exchangeRateRequest)
                 {
                     // return our reply to the user
                     Activity infoReply = activity.CreateReply(endOutput);
-
                     await connector.Conversations.ReplyToActivityAsync(infoReply);
 
                 }
@@ -183,7 +182,93 @@ namespace contosoBankBot
                 {
 
                     WeatherObject.RootObject rootObject;
+                    /*ExchangeRateObject.RootObject leRootObject;
+                    endOutput = "What currency would you like to convert from?";
 
+                    //Reset the conversion information
+                    userData.SetProperty<string>("baseCurrency", "");
+                    userData.SetProperty<string>("destinationCurrency", "");
+                    userData.SetProperty<string>("conversionAmount", "");
+
+
+                    if (userData.GetProperty<string>("baseCurrency") == "")
+                    {
+                        //Updates the base currency
+                        string baseCurrency = activity.Text;
+                        userData.SetProperty<string>("baseCurrency", baseCurrency);
+                        endOutput = "What currency would you like to convert to?";
+                    }
+                    else if(userData.GetProperty<string>("destinationCurrency") == "")
+                    {
+                        //Updates the destination currency
+                        string destinationCurrency = activity.Text;
+                        userData.SetProperty<string>("destinationCurrency", destinationCurrency);
+                        endOutput = "What amount would you like to convert?";
+                    }
+                    else if(userData.GetProperty<string>("conversionAmount") == "")
+                    {
+                        //Updates the conversion amount
+                        string conversionAmount = activity.Text;
+                        userData.SetProperty<string>("conversionAmount", conversionAmount);
+                        endOutput = "Calculating...";
+                    }
+                    else if(userData.GetProperty<string>("conversionAmount") != "")
+                    {
+                        HttpClient leClient = new HttpClient();
+                        string y = await leClient.GetStringAsync(new Uri("http://api.fixer.io/latest?base=" + userData.GetProperty<string>("baseCurrency") + "&symbols=" + userData.GetProperty<string>("destinationCurrency")));
+
+                        leRootObject = JsonConvert.DeserializeObject<ExchangeRateObject.RootObject>(y);
+
+                        string currency = userData.GetProperty<string>("destinationCurrency");
+
+                        //double conversionRate = leRootObject.rates.AUD;
+                        //double conversionRate = leRootObject.rates.BGN;
+                        //double conversionRate = leRootObject.rates.BRL;
+                        //double conversionRate = leRootObject.rates.CAD;
+                        //double conversionRate = leRootObject.rates.CHF;
+                        //double conversionRate = leRootObject.rates.CNY;
+                        //double conversionRate = leRootObject.rates.CZK;
+                        //double conversionRate = leRootObject.rates.DKK;
+                        //double conversionRate = leRootObject.rates.GBP;
+                        //double conversionRate = leRootObject.rates.HKD;
+                        //double conversionRate = leRootObject.rates.HRK;
+                        //double conversionRate = leRootObject.rates.HUF;
+                        //double conversionRate = leRootObject.rates.IDR;
+                        //double conversionRate = leRootObject.rates.ILS;
+                        //double conversionRate = leRootObject.rates.INR;
+                        //double conversionRate = leRootObject.rates.JPY;
+                        //double conversionRate = leRootObject.rates.KRW;
+                        //double conversionRate = leRootObject.rates.MXN;
+                        //double conversionRate = leRootObject.rates.MYR;
+                        //double conversionRate = leRootObject.rates.NOK;
+                        //double conversionRate = leRootObject.rates.PHP;
+                        //double conversionRate = leRootObject.rates.PLN;
+                        //double conversionRate = leRootObject.rates.RON;
+                        //double conversionRate = leRootObject.rates.RUB;
+                        //double conversionRate = leRootObject.rates.SEK;
+                        //double conversionRate = leRootObject.rates.SGD;
+                        //double conversionRate = leRootObject.rates.THB;
+                        //double conversionRate = leRootObject.rates.TRY;
+                        //double conversionRate = leRootObject.rates.USD;
+                        //double conversionRate = leRootObject.rates.ZAR;
+                        //double conversionRate = leRootObject.rates.EUR;
+                        //double conversionRate = leRootObject.rates.NZD;
+
+                        //double result = Convert.ToDouble(currency) * ;
+                    }
+
+                    // return our reply to the user
+                    Activity replyToConversation = activity.CreateReply($"This is around {result}");
+                    Attachment plAttachment = plCard.ToAttachment();
+                    replyToConversation.Attachments.Add(plAttachment);
+                    await connector.Conversations.SendToConversationAsync(replyToConversation);
+                    */
+
+
+
+
+
+                    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     //Console.WriteLine(activity.Attachments[0].ContentUrl);
 
                     HttpClient client = new HttpClient();
