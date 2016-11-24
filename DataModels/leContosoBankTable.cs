@@ -3,24 +3,25 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Threading.Tasks;
 
 namespace contosoBankBot.DataModels
 {
     public class leContosoBankTable
     {
         [JsonProperty(PropertyName = "id")]
-        public string id { get; set; }
+        public string ID { get; set; }
 
         [JsonProperty(PropertyName = "createdAt")]
-        public DateTime createdAt { get; set; }
+        public DateTime CreatedAt { get; set; }
 
         [JsonProperty(PropertyName = "updatedAt")]
-        public DateTime updatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
 
         [JsonProperty(PropertyName = "version")]
-        public double version { get; set; }
+        public double Version { get; set; }
 
         [JsonProperty(PropertyName = "deleted")]
-        public bool deleted { get; set; }
+        public bool Deleted { get; set; }
     }
 }

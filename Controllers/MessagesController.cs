@@ -141,7 +141,7 @@ namespace contosoBankBot
                     endOutput = "";
                     foreach (leContosoBankTable t in databases)
                     {
-                        endOutput += "[" + t.createdAt + "] ID " + t.id + ", Version " + t.version + "\n\n";
+                        endOutput += "[" + t.CreatedAt + "] ID " + t.ID + ", Version " + t.Version + "\n\n";
                     }
                     exchangeRateRequest = false;
 
@@ -152,18 +152,18 @@ namespace contosoBankBot
                 {
                     leContosoBankTable database = new leContosoBankTable()
                     {
-                        id = "123454321",
-                        createdAt = DateTime.Now,
-                        updatedAt = DateTime.Now,
-                        deleted = false,
-                        version = 1.0
+                        ID = "123454321",
+                        CreatedAt = DateTime.Now,
+                        UpdatedAt = DateTime.Now,
+                        Deleted = false,
+                        Version = 1.0
                     };
 
                     await AzureManager.AzureManagerInstance.AddDatabase(database);
 
                     exchangeRateRequest = false;
 
-                    endOutput = "New timeline added [" + database.createdAt + "]";
+                    endOutput = "New timeline added [" + database.CreatedAt + "]";
                 }
 
                 //API call for conversion rates

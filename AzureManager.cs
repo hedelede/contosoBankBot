@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using System.Text;
 
 namespace contosoBankBot
 {
@@ -16,8 +17,8 @@ namespace contosoBankBot
 
         private AzureManager()
         {
-            this.client = new MobileServiceClient("http://lecontosobankdatabase.azurewebsites.net");
-            this.databaseTable = client.GetTable<leContosoBankTable>();
+            client = new MobileServiceClient("http://lecontosobankdatabase.azurewebsites.net");
+            databaseTable = client.GetTable<leContosoBankTable>();
         }
 
         public MobileServiceClient AzureClient
