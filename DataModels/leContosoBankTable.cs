@@ -18,8 +18,8 @@ namespace contosoBankBot.DataModels
         [JsonProperty(PropertyName = "updatedAt")]
         public DateTime UpdatedAt { get; set; }
 
-        [JsonProperty(PropertyName = "version")]
-        public double Version { get; set; }
+        [JsonProperty(PropertyName = "currentVersion")]
+        public string Version { get; set; }
 
         [JsonProperty(PropertyName = "deleted")]
         public bool Deleted { get; set; }

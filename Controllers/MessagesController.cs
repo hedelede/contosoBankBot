@@ -135,7 +135,7 @@ namespace contosoBankBot
                 }
 
                 //Database implementation
-                if (userMessage.ToLower().Equals("get database"))
+                if (userMessage.ToLower().Equals("get account"))
                 {
                     List<leContosoBankTable> databases = await AzureManager.AzureManagerInstance.GetDatabase();
                     endOutput = "";
@@ -148,7 +148,7 @@ namespace contosoBankBot
                 }
 
                 //Database creation
-                if (userMessage.ToLower().Equals("new database"))
+                if (userMessage.ToLower().Equals("new account"))
                 {
                     leContosoBankTable database = new leContosoBankTable()
                     {
@@ -156,7 +156,26 @@ namespace contosoBankBot
                         CreatedAt = DateTime.Now,
                         UpdatedAt = DateTime.Now,
                         Deleted = false,
-                        Version = 1.0
+                        Version = "1.0"
+                    };
+
+                    await AzureManager.AzureManagerInstance.AddDatabase(database);
+
+                    exchangeRateRequest = false;
+
+                    endOutput = "New timeline added [" + database.CreatedAt + "]";
+                }
+
+                //Database deletion
+                if (userMessage.ToLower().Equals("delete account"))
+                {
+                    leContosoBankTable database = new leContosoBankTable()
+                    {
+                        ID = "123454321",
+                        CreatedAt = DateTime.Now,
+                        UpdatedAt = DateTime.Now,
+                        Deleted = false,
+                        Version = "1.0"
                     };
 
                     await AzureManager.AzureManagerInstance.AddDatabase(database);

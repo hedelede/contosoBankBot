@@ -17,7 +17,7 @@ namespace contosoBankBot
 
         private AzureManager()
         {
-            client = new MobileServiceClient("http://lecontosobankdatabase.azurewebsites.net");
+            client = new MobileServiceClient("http://leContosoBankDatabase.azurewebsites.net");
             databaseTable = client.GetTable<leContosoBankTable>();
         }
 
@@ -38,6 +38,12 @@ namespace contosoBankBot
                 return instance;
             }
         }
+
+        public async Task RemoveDatabase(leContosoBankTable database)
+        {
+            await databaseTable.DeleteAsync(database);
+        }
+
 
         public async Task AddDatabase(leContosoBankTable database)
         {
