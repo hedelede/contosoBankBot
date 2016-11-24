@@ -7,10 +7,8 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using Microsoft.Bot.Connector;
 using Newtonsoft.Json;
-using MSA_WeatherBot.Models;
 using System.Collections.Generic;
 using Microsoft.WindowsAzure.MobileServices;
-using contosoBankBot.Models;
 using contosoBankBot.DataModels;
 
 namespace contosoBankBot
@@ -34,14 +32,12 @@ namespace contosoBankBot
 
                 bool exchangeRateRequest = false;
                 string endOutput = "Hello, I am *Contoso 343*, the Contoso Bank chatbot. ";
-                endOutput += "To get started, tell me what you want to do:  \n";
-                endOutput += "-Write \"**stocks**\" to get the latest stock info  \n";
-                endOutput += "-Write \"**conversion**\" to get the latest conversion rates of the NZD  \n";
-                endOutput += "-Write \"**login**\" to access your personal data";
+                endOutput += "To get started, tell me what you want to do. \n\n";
+                endOutput += "If you need help, write **help 1**!";
 
 
                 bool greeting = userData.GetProperty<bool>("SentGreeting");
-                                
+
                 //Basic greeting, saving name
                 if (greeting == true)
                 {
@@ -50,13 +46,11 @@ namespace contosoBankBot
                     if (name == null)
                     {
                         endOutput = "Why hello there, random stranger! What is your name?";
-                        exchangeRateRequest = false;
                         userData.SetProperty<bool>("SentGreeting", true);
                         await stateClient.BotState.SetUserDataAsync(activity.ChannelId, activity.From.Id, userData);
                     }
                     else
                     {
-                        //activity.Text = name;
                         userData.SetProperty<bool>("SentGreeting", true);
                         await stateClient.BotState.SetUserDataAsync(activity.ChannelId, activity.From.Id, userData);
                     }
@@ -75,31 +69,23 @@ namespace contosoBankBot
                         string name = userMessage.Substring(11);
                         userData.SetProperty<string>("Name", name);
                         await stateClient.BotState.SetUserDataAsync(activity.ChannelId, activity.From.Id, userData);
-                        //endOutput = "So your name is " + name + "? Nice to meet you!";
-                        exchangeRateRequest = false;
                         if (name.Length != 0)
                         {
                             endOutput = "So your name is " + name + "? Nice to meet you!";
-                            exchangeRateRequest = false;
                             await stateClient.BotState.SetUserDataAsync(activity.ChannelId, activity.From.Id, userData);
                             userData.SetProperty<bool>("SentGreeting", true);
                         }
 
                         userData.SetProperty<string>("Name", name);
                         await stateClient.BotState.SetUserDataAsync(activity.ChannelId, activity.From.Id, userData);
-                        //endOutput = "So your name is " + name + "? Nice to meet you!";
-                        exchangeRateRequest = false;
                     }
                 }
 
                 //Clear user data if requested
                 if (userMessage.ToLower().Contains("clear"))
                 {
-                    endOutput = "User data cleared";
-                    //string name = userData.GetProperty<string>("Name");
-                    //name = null;
+                    endOutput = "Your user data has been cleared.";
                     await stateClient.BotState.DeleteStateForUserAsync(activity.ChannelId, activity.From.Id);
-                    exchangeRateRequest = false;
                 }
 
                 //Card for displaying link to latest stocks
@@ -134,55 +120,140 @@ namespace contosoBankBot
 
                 }
 
-                //Database implementation
+                //Read account information
                 if (userMessage.ToLower().Equals("get account"))
                 {
                     List<leContosoBankTable> databases = await AzureManager.AzureManagerInstance.GetDatabase();
                     endOutput = "";
                     foreach (leContosoBankTable t in databases)
                     {
-                        endOutput += "[" + t.CreatedAt + "] ID " + t.ID + ", Version " + t.Version + "\n\n";
+                        endOutput += "As of " + t.UpdatedAt + ", your "+ t.AccountName + " acount has " + t.Balance + " (NZD) in it." ;
                     }
-                    exchangeRateRequest = false;
 
                 }
 
-                //Database creation
-                if (userMessage.ToLower().Equals("new account"))
+                //Create account
+                if (userMessage.Length > 12 && userMessage.ToLower().Substring(0, 11).Equals("new account"))
                 {
+
+                    string accountName = userMessage.Substring(12);
                     leContosoBankTable database = new leContosoBankTable()
                     {
-                        ID = "123454321",
-                        CreatedAt = DateTime.Now,
-                        UpdatedAt = DateTime.Now,
-                        Deleted = false,
-                        Version = "1.0"
+                        AccountName = accountName,
+                        Balance = "0"
                     };
 
                     await AzureManager.AzureManagerInstance.AddDatabase(database);
 
-                    exchangeRateRequest = false;
-
-                    endOutput = "New timeline added [" + database.CreatedAt + "]";
+                    endOutput = "A new account called " + database.AccountName + " was created!";
                 }
 
-                //Database deletion
-                if (userMessage.ToLower().Equals("delete account"))
+                //Delete account
+                /*
+                if (userMessage.Length > 15 && userMessage.ToLower().Substring(0, 14).Equals("delete account"))
                 {
+                    string accountName = userMessage.Substring(12);
                     leContosoBankTable database = new leContosoBankTable()
                     {
-                        ID = "123454321",
-                        CreatedAt = DateTime.Now,
-                        UpdatedAt = DateTime.Now,
-                        Deleted = false,
-                        Version = "1.0"
+                        AccountName = accountName,
                     };
+                    await AzureManager.AzureManagerInstance.RemoveDatabase(database);
+                    endOutput = "Your account was deleted.";
+                }
+                */
+                //Update account
+                /*
+                if (userMessage.Length > 15 && userMessage.ToLower().Substring(0, 14).Equals("update account"))
+                {
+                    string accountName = userMessage.Substring(12);
+                    Random amountOfMoney = new Random();
+                    double newBalance = amountOfMoney.Next(0, 1000);
 
-                    await AzureManager.AzureManagerInstance.AddDatabase(database);
+                    List<leContosoBankTable> database = await AzureManager.AzureManagerInstance.GetDatabase();
+                    foreach (leContosoBankTable account in database)
+                    {
+                        if (account.AccountName == accountName)
+                        {
+                            account.Balance = newBalance.ToString();
+                            await AzureManager.AzureManagerInstance.UpdateDatabase(account);
+                        }
+                    }
+                    endOutput = "You now have " + newBalance.ToString() + " (NZD) in your acccount.";
+                }
+                */
+                //Set base currency
+                if (userMessage.Length > 21)
+                {
+                    if (userMessage.ToLower().Substring(0, 20).Equals("set base currency to"))
+                    {
+                        string baseCurrency = ((userMessage.Substring(21, 3)).ToLower());
+                        string[] availableCurrency = new string[] { "aud", "bgn", "brl", "cad", "chf", "cny", "czk", "dkk", "eur", "gbp", "hkd", "hrk", "huf", "idr", "ils", "inr", "jpy", "krw", "mxn", "myr", "nok", "nzd", "php", "pln", "ron", "rub", "sek", "sgd", "thb", "try", "usd", "zar" };
 
-                    exchangeRateRequest = false;
+                        if (!((availableCurrency).Contains(baseCurrency)))
+                        {
+                            endOutput = "This does not appear to be one of my available currencies";
+                        }
+                        else
+                        {
+                            userData.SetProperty<string>("baseCurrency", baseCurrency);
+                            await stateClient.BotState.SetUserDataAsync(activity.ChannelId, activity.From.Id, userData);
+                            endOutput = "Your base currency is now set to " + baseCurrency.ToUpper();
+                        }
+                    }
+                }
 
-                    endOutput = "New timeline added [" + database.CreatedAt + "]";
+                //Set destination currency
+                if (userMessage.Length > 27)
+                {
+                    if (userMessage.ToLower().Substring(0, 27).Equals("set destination currency to"))
+                    {
+                        string destinationCurrency = ((userMessage.Substring(28, 3)).ToLower());
+                        string[] availableCurrency = new string[] { "aud", "bgn", "brl", "cad", "chf", "cny", "czk", "dkk", "eur", "gbp", "hkd", "hrk", "huf", "idr", "ils", "inr", "jpy", "krw", "mxn", "myr", "nok", "nzd", "php", "pln", "ron", "rub", "sek", "sgd", "thb", "try", "usd", "zar" };
+
+                        if (!((availableCurrency).Contains(destinationCurrency)))
+                        {
+                            endOutput = "This does not appear to be one of my available currencies";
+                        }
+                        else
+                        {
+                            userData.SetProperty<string>("destinationCurrency", destinationCurrency);
+                            await stateClient.BotState.SetUserDataAsync(activity.ChannelId, activity.From.Id, userData);
+                            endOutput = "Your destination currency is now set to " + destinationCurrency.ToUpper();
+                        }
+                    }
+                }
+
+                //Help
+                if (userMessage.ToLower().Contains("help 1"))
+                {
+                    endOutput = "Here is a list of commands that may help you. ";
+                    endOutput += "Please note that any bold statements are commands which may be useful to you.  \n";
+                    endOutput += "Set your name: **my name is **[your name]  \n";
+                    endOutput += "Access the latest stock information: **stocks**  \n";
+                    endOutput += "Clear you user data: **clear**  \n";
+                    endOutput += "Write **help 2** to get currency rate help";
+                }
+                if (userMessage.ToLower().Contains("help 2"))
+                {
+                    endOutput = "To get the latest currency rates:  \n";
+                    endOutput += "1) **set destination currency to ** [3-lettered currency symbol]  \n";
+                    endOutput += "2) **set base currency to ** [3-lettered currency symbol]  \n";
+                    endOutput += "3) **conversion**  \n";
+                    endOutput += "Note that 1. and 2. can be set in either order  \n";
+                    endOutput += "Write **help 3** to get help with your account";
+                }
+                if (userMessage.ToLower().Contains("help 3"))
+                {
+                    endOutput = "To create an account: **new account** [account name]  \n";
+                    //endOutput += "To delete an account: **delete account** [account name]  \n";
+                    //endOutput += "To update an account: **update account** [account name]  \n";
+                    endOutput += "To see all your accounts: **get account**  \n";
+                }
+
+                //Allow conversion
+                if (userMessage.ToLower().Equals("conversion"))
+                {
+                    exchangeRateRequest = true;
                 }
 
                 //API call for conversion rates
@@ -195,138 +266,45 @@ namespace contosoBankBot
                 }
                 else
                 {
+                    //Access API
+                    string baseCurrency = userData.GetProperty<string>("baseCurrency");
+                    string destinationCurrency = userData.GetProperty<string>("destinationCurrency");
 
-                    WeatherObject.RootObject rootObject;
-                    /*ExchangeRateObject.RootObject leRootObject;
-                    endOutput = "What currency would you like to convert from?";
-
-                    //Reset the conversion information
-                    userData.SetProperty<string>("baseCurrency", "");
-                    userData.SetProperty<string>("destinationCurrency", "");
-                    userData.SetProperty<string>("conversionAmount", "");
-
-
-                    if (userData.GetProperty<string>("baseCurrency") == "")
+                    if (baseCurrency != null || destinationCurrency != null)
                     {
-                        //Updates the base currency
-                        string baseCurrency = activity.Text;
-                        userData.SetProperty<string>("baseCurrency", baseCurrency);
-                        endOutput = "What currency would you like to convert to?";
+                        HttpClient Client = new HttpClient();
+                        string conversionRate = await Client.GetStringAsync(new Uri("http://api.fixer.io/latest?base=" + baseCurrency.ToUpper() + "&symbols=" + destinationCurrency.ToUpper()));
+
+                        //Retrieve data
+                        conversionRate = conversionRate.Substring(49, 3);
+                        double rate = Convert.ToDouble(conversionRate);
+
+
+                        //Calculate conversion amount
+                        //double result = (1 * rate);
+                        //string resultReply = Convert.ToString(result);
+
+                        endOutput = "1" + baseCurrency.ToUpper() + " is worth " + rate + destinationCurrency.ToUpper();
                     }
-                    else if(userData.GetProperty<string>("destinationCurrency") == "")
+                    else
                     {
-                        //Updates the destination currency
-                        string destinationCurrency = activity.Text;
-                        userData.SetProperty<string>("destinationCurrency", destinationCurrency);
-                        endOutput = "What amount would you like to convert?";
+                        endOutput = "Please **set base currency to** something and **set destination currency to** something before a **conversion**";
                     }
-                    else if(userData.GetProperty<string>("conversionAmount") == "")
-                    {
-                        //Updates the conversion amount
-                        string conversionAmount = activity.Text;
-                        userData.SetProperty<string>("conversionAmount", conversionAmount);
-                        endOutput = "Calculating...";
-                    }
-                    else if(userData.GetProperty<string>("conversionAmount") != "")
-                    {
-                        HttpClient leClient = new HttpClient();
-                        string y = await leClient.GetStringAsync(new Uri("http://api.fixer.io/latest?base=" + userData.GetProperty<string>("baseCurrency") + "&symbols=" + userData.GetProperty<string>("destinationCurrency")));
 
-                        leRootObject = JsonConvert.DeserializeObject<ExchangeRateObject.RootObject>(y);
 
-                        string currency = userData.GetProperty<string>("destinationCurrency");
+                    //// return our reply to the user
+                    //Activity infoReply = activity.CreateReply(endOutput);
+                    //await connector.Conversations.ReplyToActivityAsync(infoReply);
 
-                        //double conversionRate = leRootObject.rates.AUD;
-                        //double conversionRate = leRootObject.rates.BGN;
-                        //double conversionRate = leRootObject.rates.BRL;
-                        //double conversionRate = leRootObject.rates.CAD;
-                        //double conversionRate = leRootObject.rates.CHF;
-                        //double conversionRate = leRootObject.rates.CNY;
-                        //double conversionRate = leRootObject.rates.CZK;
-                        //double conversionRate = leRootObject.rates.DKK;
-                        //double conversionRate = leRootObject.rates.GBP;
-                        //double conversionRate = leRootObject.rates.HKD;
-                        //double conversionRate = leRootObject.rates.HRK;
-                        //double conversionRate = leRootObject.rates.HUF;
-                        //double conversionRate = leRootObject.rates.IDR;
-                        //double conversionRate = leRootObject.rates.ILS;
-                        //double conversionRate = leRootObject.rates.INR;
-                        //double conversionRate = leRootObject.rates.JPY;
-                        //double conversionRate = leRootObject.rates.KRW;
-                        //double conversionRate = leRootObject.rates.MXN;
-                        //double conversionRate = leRootObject.rates.MYR;
-                        //double conversionRate = leRootObject.rates.NOK;
-                        //double conversionRate = leRootObject.rates.PHP;
-                        //double conversionRate = leRootObject.rates.PLN;
-                        //double conversionRate = leRootObject.rates.RON;
-                        //double conversionRate = leRootObject.rates.RUB;
-                        //double conversionRate = leRootObject.rates.SEK;
-                        //double conversionRate = leRootObject.rates.SGD;
-                        //double conversionRate = leRootObject.rates.THB;
-                        //double conversionRate = leRootObject.rates.TRY;
-                        //double conversionRate = leRootObject.rates.USD;
-                        //double conversionRate = leRootObject.rates.ZAR;
-                        //double conversionRate = leRootObject.rates.EUR;
-                        //double conversionRate = leRootObject.rates.NZD;
-
-                        //double result = Convert.ToDouble(currency) * ;
-                    }
+                    ////Reset the conversion information
+                    //userData.SetProperty<string>("baseCurrency", "");
+                    //userData.SetProperty<string>("destinationCurrency", "");
+                    //userData.SetProperty<string>("conversionAmount", "");
 
                     // return our reply to the user
-                    Activity replyToConversation = activity.CreateReply($"This is around {result}");
-                    Attachment plAttachment = plCard.ToAttachment();
-                    replyToConversation.Attachments.Add(plAttachment);
-                    await connector.Conversations.SendToConversationAsync(replyToConversation);
-                    */
-
-
-
-
-
-                    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                    //Console.WriteLine(activity.Attachments[0].ContentUrl);
-
-                    HttpClient client = new HttpClient();
-                    string x = await client.GetStringAsync(new Uri("http://api.openweathermap.org/data/2.5/weather?q=" + activity.Text + "&units=metric&APPID=440e3d0ee33a977c5e2fff6bc12448ee"));
-
-                    rootObject = JsonConvert.DeserializeObject<WeatherObject.RootObject>(x);
-
-                    string cityName = rootObject.name;
-                    string temp = rootObject.main.temp + "°C";
-                    string pressure = rootObject.main.pressure + "hPa";
-                    string humidity = rootObject.main.humidity + "%";
-                    string wind = rootObject.wind.deg + "°";
-                    // added fields
-                    string icon = rootObject.weather[0].icon;
-                    double cityId = rootObject.id;
-
-                    // return our reply to the user
-                    Activity replyToConversation = activity.CreateReply($"Current weather for {cityName}");
-                    replyToConversation.Recipient = activity.From;
-                    replyToConversation.Type = "message";
-                    replyToConversation.Attachments = new List<Attachment>();
-                    List<CardImage> cardImages = new List<CardImage>();
-                    cardImages.Add(new CardImage(url: "http://openweathermap.org/img/w/" + icon + ".png"));
-                    List<CardAction> cardButtons = new List<CardAction>();
-                    CardAction plButton = new CardAction()
-                    {
-                        Value = "https://openweathermap.org/city/" + cityId,
-                        Type = "openUrl",
-                        Title = "More Info"
-                    };
-                    cardButtons.Add(plButton);
-                    ThumbnailCard plCard = new ThumbnailCard()
-                    {
-                        Title = cityName + " Weather",
-                        Subtitle = "Temperature " + temp + ", pressure " + pressure + ", humidity  " + humidity + ", wind speeds of " + wind,
-                        Images = cardImages,
-                        Buttons = cardButtons
-                    };
-                    Attachment plAttachment = plCard.ToAttachment();
-                    replyToConversation.Attachments.Add(plAttachment);
-                    await connector.Conversations.SendToConversationAsync(replyToConversation);
-
-                }
+                    Activity infoReply = activity.CreateReply(endOutput);
+                    await connector.Conversations.ReplyToActivityAsync(infoReply);
+                }                  
             }
             else
             {

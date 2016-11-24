@@ -23,5 +23,11 @@ namespace contosoBankBot.DataModels
 
         [JsonProperty(PropertyName = "deleted")]
         public bool Deleted { get; set; }
+
+        [JsonProperty(PropertyName = "accountName")]
+        public string AccountName { get; set; }
+
+        [JsonProperty(PropertyName = "balance")]
+        public string Balance { get; set; }
     }
 }

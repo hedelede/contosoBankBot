@@ -44,6 +44,10 @@ namespace contosoBankBot
             await databaseTable.DeleteAsync(database);
         }
 
+        public async Task UpdateDatabase(leContosoBankTable database)
+        {
+            await databaseTable.UpdateAsync(database);
+        }
 
         public async Task AddDatabase(leContosoBankTable database)
         {
