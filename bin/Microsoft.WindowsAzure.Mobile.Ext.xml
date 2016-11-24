@@ -143,6 +143,11 @@
             A singleton instance of the <see cref="T:Microsoft.WindowsAzure.MobileServices.ExpressionUtility"/>.
             </summary>
         </member>
+        <member name="P:Microsoft.WindowsAzure.MobileServices.ExpressionUtility.Instance">
+            <summary>
+            A singleton instance of the <see cref="T:Microsoft.WindowsAzure.MobileServices.ExpressionUtility"/>.
+            </summary>
+        </member>
         <member name="M:Microsoft.WindowsAzure.MobileServices.ExpressionUtility.PartiallyEvaluate(System.Linq.Expressions.Expression)">
             <summary>
             Evaluate all subtrees of an expression that aren't dependent on
@@ -164,11 +169,6 @@
             <param name="expression">The expression to search for children MemberExpressions</param>
             <returns>A collection of MemberExpressions.</returns>
         </member>
-        <member name="P:Microsoft.WindowsAzure.MobileServices.ExpressionUtility.Instance">
-            <summary>
-            A singleton instance of the <see cref="T:Microsoft.WindowsAzure.MobileServices.ExpressionUtility"/>.
-            </summary>
-        </member>
         <member name="T:Microsoft.WindowsAzure.MobileServices.ApplicationStorage">
             <summary>
             An implementation of the <see cref="T:Microsoft.WindowsAzure.MobileServices.IApplicationStorage"/> interface
@@ -177,6 +177,11 @@
             </summary>
         </member>
         <member name="F:Microsoft.WindowsAzure.MobileServices.ApplicationStorage.instance">
+            <summary>
+            A singleton instance of the <see cref="T:Microsoft.WindowsAzure.MobileServices.ApplicationStorage"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.WindowsAzure.MobileServices.ApplicationStorage.Instance">
             <summary>
             A singleton instance of the <see cref="T:Microsoft.WindowsAzure.MobileServices.ApplicationStorage"/>.
             </summary>
@@ -212,11 +217,6 @@
             Thrown if an error occurs while writing the setting.
             </exception>
         </member>
-        <member name="P:Microsoft.WindowsAzure.MobileServices.ApplicationStorage.Instance">
-            <summary>
-            A singleton instance of the <see cref="T:Microsoft.WindowsAzure.MobileServices.ApplicationStorage"/>.
-            </summary>
-        </member>
         <member name="P:Microsoft.WindowsAzure.MobileServices.CurrentPlatform.ApplicationStorage">
             <summary>
             Returns a platform-specific implemention of application storage.
@@ -230,7 +230,7 @@
         <member name="P:Microsoft.WindowsAzure.MobileServices.CurrentPlatform.ExpressionUtility">
             <summary>
             Returns a platform-specific implementation of a utility class
-            that provides functionality for manipulating 
+            that provides functionality for manipulating
             <see cref="T:System.Linq.Expressions.Expression"/> instances.
             </summary>
         </member>
@@ -239,6 +239,25 @@
             Returns a platform-specific implementation of a utility class
             that provides functionality for platform-specifc push capabilities.
             </summary>
+        </member>
+        <member name="P:Microsoft.WindowsAzure.MobileServices.CurrentPlatform.DefaultDatabasePath">
+            <summary>
+            Returns a platform-specific path for storing offline databases
+            that are not fully-qualified.
+            </summary>
+        </member>
+        <member name="M:Microsoft.WindowsAzure.MobileServices.CurrentPlatform.GetNamedApplicationStorage(System.String)">
+            <summary>
+            Retrieves an ApplicationStorage where all items stored are segmented from other stored items
+            </summary>
+            <param name="name">The name of the segemented area in application storage</param>
+            <returns>The specific instance of that segment</returns>
+        </member>
+        <member name="M:Microsoft.WindowsAzure.MobileServices.CurrentPlatform.EnsureFileExists(System.String)">
+            <summary>
+            Ensures that a file exists, creating it if necessary
+            </summary>
+            <param name="path">The fully-qualified pathname to check</param>
         </member>
         <member name="T:Microsoft.WindowsAzure.MobileServices.PlatformInformation">
             <summary>

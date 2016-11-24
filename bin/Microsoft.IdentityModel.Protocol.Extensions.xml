@@ -628,11 +628,16 @@
             Gets or sets 'redirect_uri'.
             </summary>
         </member>
+        <member name="P:Microsoft.IdentityModel.Protocols.OpenIdConnectMessage.RefreshToken">
+            <summary>
+            Gets or sets 'refresh_token'.
+            </summary>
+        </member>
         <member name="P:Microsoft.IdentityModel.Protocols.OpenIdConnectMessage.RequestType">
             <summary>
             Gets or set the request type for this message
             </summary>
-            <remarks>This is helpful when sending differnt messages through a common routine, when extra parameters need to be set or checked.</remarks>
+            <remarks>This is helpful when sending different messages through a common routine, when extra parameters need to be set or checked.</remarks>
         </member>
         <member name="P:Microsoft.IdentityModel.Protocols.OpenIdConnectMessage.RequestUri">
             <summary>
@@ -1030,7 +1035,6 @@
             A derived <see cref="T:System.IdentityModel.Tokens.Saml2SecurityTokenHandler"/> that implements ISecurityTokenValidator, 
             which supports validating tokens passed as strings using <see cref="T:System.IdentityModel.Tokens.TokenValidationParameters"/>.
             </summary>
-                
         </member>
         <member name="M:Microsoft.IdentityModel.Tokens.Saml2SecurityTokenHandler.#ctor">
             <summary>
@@ -1206,7 +1210,6 @@
             A derived <see cref="T:System.IdentityModel.Tokens.Saml2SecurityTokenHandler"/> that implements ISecurityTokenValidator, 
             which supports validating tokens passed as strings using <see cref="T:System.IdentityModel.Tokens.TokenValidationParameters"/>.
             </summary>
-                
         </member>
         <member name="M:Microsoft.IdentityModel.Tokens.SamlSecurityTokenHandler.#ctor">
             <summary>
