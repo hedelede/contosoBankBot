@@ -147,40 +147,7 @@ namespace contosoBankBot
 
                     endOutput = "A new account called " + database.AccountName + " was created!";
                 }
-
-                //Delete account
-                /*
-                if (userMessage.Length > 15 && userMessage.ToLower().Substring(0, 14).Equals("delete account"))
-                {
-                    string accountName = userMessage.Substring(12);
-                    leContosoBankTable database = new leContosoBankTable()
-                    {
-                        AccountName = accountName,
-                    };
-                    await AzureManager.AzureManagerInstance.RemoveDatabase(database);
-                    endOutput = "Your account was deleted.";
-                }
-                */
-                //Update account
-                /*
-                if (userMessage.Length > 15 && userMessage.ToLower().Substring(0, 14).Equals("update account"))
-                {
-                    string accountName = userMessage.Substring(12);
-                    Random amountOfMoney = new Random();
-                    double newBalance = amountOfMoney.Next(0, 1000);
-
-                    List<leContosoBankTable> database = await AzureManager.AzureManagerInstance.GetDatabase();
-                    foreach (leContosoBankTable account in database)
-                    {
-                        if (account.AccountName == accountName)
-                        {
-                            account.Balance = newBalance.ToString();
-                            await AzureManager.AzureManagerInstance.UpdateDatabase(account);
-                        }
-                    }
-                    endOutput = "You now have " + newBalance.ToString() + " (NZD) in your acccount.";
-                }
-                */
+                
                 //Set base currency
                 if (userMessage.Length > 21)
                 {
@@ -245,8 +212,6 @@ namespace contosoBankBot
                 if (userMessage.ToLower().Contains("help 3"))
                 {
                     endOutput = "To create an account: **new account** [account name]  \n";
-                    //endOutput += "To delete an account: **delete account** [account name]  \n";
-                    //endOutput += "To update an account: **update account** [account name]  \n";
                     endOutput += "To see all your accounts: **get account**  \n";
                 }
 
@@ -278,28 +243,12 @@ namespace contosoBankBot
                         //Retrieve data
                         conversionRate = conversionRate.Substring(49, 3);
                         double rate = Convert.ToDouble(conversionRate);
-
-
-                        //Calculate conversion amount
-                        //double result = (1 * rate);
-                        //string resultReply = Convert.ToString(result);
-
                         endOutput = "1" + baseCurrency.ToUpper() + " is worth " + rate + destinationCurrency.ToUpper();
                     }
                     else
                     {
                         endOutput = "Please **set base currency to** something and **set destination currency to** something before a **conversion**";
                     }
-
-
-                    //// return our reply to the user
-                    //Activity infoReply = activity.CreateReply(endOutput);
-                    //await connector.Conversations.ReplyToActivityAsync(infoReply);
-
-                    ////Reset the conversion information
-                    //userData.SetProperty<string>("baseCurrency", "");
-                    //userData.SetProperty<string>("destinationCurrency", "");
-                    //userData.SetProperty<string>("conversionAmount", "");
 
                     // return our reply to the user
                     Activity infoReply = activity.CreateReply(endOutput);
